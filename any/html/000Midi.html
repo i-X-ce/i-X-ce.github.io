@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポケMIDI</title>
+    <!-- 記事の追加があるときは、works.htmlとcords/header.htmlにも追加しておくこと -->
+    <!-- 記事のHTMLファイルの先頭には3桁の数字で番号をふっておくこと -->
+    <!-- 
+        ---チェック事項---
+        1.ファイル名
+        1.title、日付の入力
+        3.headerのリストの追加
+        4.worksへの追加
+        (5.news、recomendへの追加)
+    -->
+</head>
+<body>
+    <header id="anyHearder"></header>
+    <script src="../any.js"></script>
+    <div class="contener">
+        <div class="title">
+            <p class="day">2024/04/23</p>
+            <h1>MIDIポケ</h1>
+        </div>
+        <div class="gridContener">
+            <div class="text">
+                <div class="card">
+                    <h2>説明</h2>
+                    <div class="text-content">
+                        <div class="box-center">
+                            <img src="../img/スクリーンショット 2024-04-23 181731.png" style="height: 250px;" style="margin: auto;">
+                        </div>
+                        <p>
+                            以前作ったMIDIファイルをポケモンの音楽データに変換するプログラムです。<br>
+                            これを使うと楽にポケモンで音楽データを作成することができます。<br>
+                            ただしジャンプやコールなどのコマンドはサポートしていませんので手で作るよりは打ち込み量が増えてしまうと思います。<br>
+                        </p>
+                        <h3>使い方</h3>
+                        <p>・開く</p>
+                        <p>
+                            変換したいMIDIファイルを選択します。MIDIファイルはトラック1がパルス1、トラック2がパルス2、トラック3がウェーブに対応しています。開くと同時に変換が行われるので、先に他の設定を行ってからファイルを開いてください。<br><br>
+                        </p>
+                        <p>・再読み込み</p>
+                        <p>
+                            選択されたMIDIファイルをもう一度変換させます。<br><br>
+                        </p>
+                        <p>・バージョン</p>
+                        <p>
+                            音楽を再生させたいポケモンROMのバージョンを変更できます。<br><br>
+                        </p>
+                        <p>・BPM</p>
+                        <p>
+                            曲のBPMを設定します。MIDIファイルで設定したBPMは完全に破棄されるので注意してください。<br>
+                            実際の演奏では設定したBPMとはずれる場合があります。<br><br>
+                        </p>
+                        <p>・アドレス</p>
+                        <p>
+                            音楽データを置くポケモン側のアドレスを16進数で入力してください。<br>
+                            「先頭に合わせる」ではパルス2とウェーブのアドレスはパルス1の直下に自動で設定されます。<br>
+                            「個別に設定する」ではそれぞれを別々で設定することができます。<br><br>
+                        </p>
+                        <p>・パルス1,パルス2,ウェーブ</p>
+                        <p>
+                            それぞれのチャンネルの設定ができます。<br>
+                            「オクターブ」は元のMIDIファイルから何オクターブあげるかを設定でき、数字大きくなると高くなります。ウェーブは音が1オクターブ高く設定する必要があるため、デフォルトで1が入っています。<br>
+                            「ボリューム」では音の大きさを設定できます。<br>
+                            「伸び」は音の長さを設定できます。<br>
+                            「音色」では音色を4か8種類から選ぶことができます。<br><br>
+
+                        </p>
+                        <p>・再生コード</p>
+                        <p>
+                            音楽を再生するためのポケモン側のプログラムを出力します。適当なアドレスにこのコードを書き込んで実行すると音楽が再生されます。<br><br>
+                        </p>
+                        <p>・音楽データ</p>
+                        <p>
+                            変換された音楽データが出力されます。この音楽データを設定したアドレスに書き込みます。音楽データは各トラックごとに改行されているので、個別でアドレスを設定した場合はこの改行を見ながら書き込んでください。<br><br>
+                        </p>
+                        <h3>注意</h3>
+                        <p>
+                            三連符などの特殊な音楽記号には対応していません。16分でクオンタイズさせたMIDIファイルだときれいに変換できます<br>
+                            変換させたデータがおかしい場合はクオンタイズをして再度変換させてみてください。
+                            windows11でのみ動作を確認しています。
+                        </p>
+                        <a href="../zip/MIDIポケ.zip" class="download-btn box-center" download="">ダウンロード</a>
+                    </div>
+                </div>
+            </div>
+            <div class="reference">
+                <div class="card">
+                    <h2>参考・関連</h2>
+                    <ul>
+                        <li><a href="https://github.com/naudio/NAudio/tree/master/NAudio.Midi">NAudio</a></li>
+                        <li><a href="https://youtu.be/0aEzTG44dT0?si=faHlDYHBey-oY4UN">【初代ポケモン】ポケモンで作曲をする方法　任意コード実行</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="anyFooter"></footer>
+    <script type="module" src="../../common.js"></script>
+</body>
+</html>
