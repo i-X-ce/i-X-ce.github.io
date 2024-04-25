@@ -1,0 +1,25 @@
+.newsContents{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.newsContents .card{
+    margin: 20px;
+    position: relative;
+
+    .day{
+        margin: 0px;
+        padding: 0px;
+        background-color: transparent;
+        color: var(--basecolor-thin);
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+    h2{
+        position: relative;
+        top: 10px;
+        text-align: center;
+    }
+}

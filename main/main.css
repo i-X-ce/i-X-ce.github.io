@@ -1,0 +1,185 @@
+html{
+    margin: 0px;
+    padding: 0px;
+    background-color: var(--basecolor-thin2);
+}
+
+html body{
+    margin: 0px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+li{
+    list-style: none;
+}
+
+a:hover{
+    opacity: 50%;
+    transition: 0.3s;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+    background-color: var(--basecolor);
+    color: var(--basecolor-thin2);
+
+    h1{
+        margin-left: 2%;
+    }
+
+    ul{
+        display: flex;
+        align-items: center;
+
+        li{
+            margin: 20px;
+            list-style: none;
+        }
+    }
+}
+
+.card{
+    display: grid;
+    margin: 50px;
+    border-top-left-radius: 20px;
+    border-end-end-radius: 20px;
+    background-color: var(--basecolor);
+    position: relative;
+    right: 0px;
+    bottom: 0px;
+    transition: 0.3s;
+
+    h2{
+        color: var(--basecolor-thin2);
+    }
+    p{
+        margin: 0px;
+        padding: 20px;
+        width: calc(100% - 40px);
+        background-color: var(--basecolor-dense);
+        color: var(--basecolor-thin);
+        border-end-end-radius: 20px;
+    }
+}
+
+.card:hover{
+    right: 5px;
+    bottom: 5px;
+    box-shadow: 10px 10px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+#file{
+    margin: 0px;
+    padding: 0px;
+}
+
+h1{
+    font-size: 32px;
+}
+
+.column{
+    margin: 10px;
+    padding: 10px;
+}
+
+nav input{
+    display: none;
+}
+
+nav ul li{
+    border-bottom: transparent 3px solid;
+    transition: 0.3s;
+}
+
+.navBtn{
+    position: relative;
+    z-index: 1;
+}
+
+.navBtn::before{
+    content: '';
+    position: absolute;
+    display: block;
+    border-top-left-radius: 10px;
+    border-end-end-radius: 10px;
+    width: 0%;
+    height: 100%;
+    top: 0px;
+    z-index: -1;
+    background-color: var(--basecolor-dense);
+    transition: 0.3s;
+}
+
+.navBtn:hover::before{
+    width: 100%;
+}
+
+nav ul input:checked + label li{
+    border-bottom: var(--basecolor-dense2) 3px solid;
+}
+
+.content{
+    overflow: hidden;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.content2{
+    flex: 1;
+
+    div{
+        position: relative;
+        bottom: 0px;
+    }
+}
+
+footer{
+    background-color: var(--basecolor-dense);
+    color: var(--basecolor-thin2);
+    text-align: center;
+
+    h1,
+    li,
+    ul{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .links{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    h1{
+        background-color: var(--basecolor-dense2);
+        font-size: 24px;
+    }
+
+    ul{
+       flex: 1; 
+    }
+
+}
+
+@media screen and (max-width: 700px) {
+   header{
+    flex-direction: column;
+    h1{
+        margin: 0px;
+    }
+    ul{
+        margin: 0px;
+    }
+   }
+}

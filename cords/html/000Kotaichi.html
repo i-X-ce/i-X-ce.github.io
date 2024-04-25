@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個体値表示ツール</title>
+</head>
+<body>
+    <header id="cordsHearder"></header>
+    <script src="../cords.js"></script>
+    <div class="contener">
+        <div class="title">
+            <p class="day">2024/04/21</p>
+            <h1>個体値表示ツール</h1>
+        </div>
+        <div class="gridContener">
+            <div class="text">
+                <div class="card">
+                    <h2>説明</h2>
+                    <div class="text-content">
+
+                        <a href="https://youtu.be/dQ2QshoCsgY?si=jtOPCRVDvKe5uEDA&t=589">こちらの動画</a>で使用したコードです。
+                        <p>各ポケモンの5つの個体値と、それを16進数で表したコードを表示します。</p>
+                        <p>コードはそのまま張り付けておくので適当に加工して使ってください。</p>
+                        <h3>コード</h3>
+                        <p class="hex">DA00~</p>
+                        <p class="hex">
+                            CD 67 01 CD D8 36 21 00 96 11 00 95 01 E0 00 CD <br>
+                            BB 01 21 14 8F 01 0A 00 3E 10 CD 18 37 21 18 8F <br> 
+                            3E 7C 22 77 CD F8 36 AF 21 20 96 01 10 00 CD 18 <br> 
+                            37 3C 21 2A 96 22 22 22 77 AF 21 10 97 01 10 00 <br> 
+                            CD 18 37 CD 81 01 FA 23 D1 A7 C8 3C 87 47 0E 07 <br> 
+                            21 A0 C3 CD D2 03 FA 23 D1 21 CA C3 11 57 D2 F5 <br> 
+                            E5 D5 CD 05 04 E1 01 06 00 09 5D 54 E1 01 28 00 <br> 
+                            09 F1 3D 20 EA 11 7E DB CD 05 04 3E 02 EA 24 CC <br> 
+                            3D EA 25 CC FA 23 D1 EA 28 CC 3E C3 EA 29 CC AF <br> 
+                            EA 87 DB CD B2 DA CD F6 3A CB 4F C2 6A DB CB 47 <br> 
+                            28 0B FA 23 D1 47 FA 26 CC B8 D2 6A DB FA 26 CC <br> 
+                            18 DE 21 A9 C3 01 09 0B CD D2 03 FA 23 D1 47 FA <br> 
+                            87 DB B8 D0 21 46 D1 01 2C 00 FA 87 DB CD BF 3A <br> 
+                            2A EA 88 DB 47 CB 37 E6 0F EA 8A DB 78 E6 0F EA <br> 
+                            8B DB 7E EA 89 DB 47 CB 37 E6 0F EA 8C DB 78 E6 <br> 
+                            0F EA 8D DB 21 8A DB 0E 04 AF 87 47 2A E6 01 80 <br> 
+                            0D 20 F7 EA 8E DB 0E 00 21 D3 C3 11 8A DB C5 E5 <br> 
+                            D5 1A CD 26 DB D1 13 E1 01 28 00 09 C1 0C 79 FE <br> 
+                            05 38 EB C3 AB 0E F5 E5 06 00 21 82 DB 09 7E E1 <br> 
+                            22 36 5D 23 E5 21 8A DB 09 5D 54 01 02 81 E1 E5 <br> 
+                            CD 7D 3C E1 F1 E5 11 0F 00 4F 06 00 3E 26 CD 8B <br> 
+                            3E 16 06 E1 01 11 00 09 CD 1A 2D FA 88 DB 21 C0 <br> 
+                            C3 CD 6D DB FA 89 DB C3 6D DB C3 74 1B CD 70 DB <br> 
+                            CB 37 F5 E6 0F C6 F6 30 02 C6 50 22 F1 C9 D4 D2 <br> 
+                            D9 50 50 51 5A 52 57 
+                        </p>
+                        <h3>使い方</h3>
+                        <div class="box-flex">
+                            <div class="box-block">
+                                <img src="../img/bgb00057.bmp">
+                                <figcaption>実行例</figcaption>
+                            </div>
+                            <p>
+                                実行するとポケモンの選択画面が出てくるので、個体値を表示させたいポケモンにカーソルを合わせると画面右のウィンドウに個体値が表示されます。<br>
+                                最上部の4桁の16進数はABSCの個体値をまとめたものが表示されています。<br>
+                                上からA:こうげき、B:ぼうぎょ、S:すばやさ、C:とくしゅの値が表示されています。<br>
+                                Bを押すか「やめる」をAで選択すると実行を終了できます。<br>
+                                赤緑後期版にのみ対応しています。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reference">
+                <div class="card">
+                    <h2>参考・関連</h2>
+                    <ul>
+                        <li><a href="https://youtu.be/dQ2QshoCsgY?si=fJDUaQxd2ufyKhwc">【初代ポケモン】野生エンカウントで最高個体が出ない理由</a></li>
+                        <li><a href="https://wiki.xn--rckteqa2e.com/wiki/%E5%80%8B%E4%BD%93%E5%80%A4">個体値 - ポケモンWiki</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="cordsFooter"></footer>
+    <script type="module" src="../../common.js"></script>
+</body>
+</html>

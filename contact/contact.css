@@ -1,0 +1,14 @@
+.contactContent{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+
+    img{
+        height: 80px;
+        margin: auto;
+        padding-bottom: 20px;
+    }
+
+    .card{
+        margin: 30px;
+    }
+}

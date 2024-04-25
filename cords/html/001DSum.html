@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSum表示ツール</title>
+</head>
+<body>
+    <header id="cordsHearder"></header>
+    <script src="../cords.js"></script>
+    <div class="contener">
+        <div class="title">
+            <p class="day">2024/04/21</p>
+            <h1>DSum表示ツール</h1>
+        </div>
+        <div class="gridContener">
+            <div class="text">
+                <div class="card">
+                    <h2>説明</h2>
+                    <div class="text-content">
+
+                        <a href="https://youtu.be/dQ2QshoCsgY?si=jtOPCRVDvKe5uEDA&t=589">こちらの動画</a>で使用したコードです。
+                        <p>DSum((0xFFD3)+(0xFFD4))、正乱数(0xFFD3)、負乱数(0xFFD4)を表示させます。</p>
+                        <p>コードはそのまま張り付けておくので適当に加工して使ってください。</p>
+                        <h3>コード</h3>
+                        <p class="hex">DA00~</p>
+                        <p class="hex">
+                            CD 67 01 CD D8 36 21 00 96 11 00 95 01 E0 00 CD <br>
+                            BB 01 21 14 8F 01 0A 00 3E 10 CD 18 37 21 18 8F <br>
+                            3E 7C 22 77 CD F8 36 AF 21 20 96 01 10 00 CD 18 <br>
+                            37 3C 21 2A 96 22 22 22 77 AF 21 10 97 01 10 00 <br>
+                            CD 18 37 CD 81 01 3E 7F 21 A0 C3 01 C8 00 CD 18 <br>
+                            37 3E D3 21 B5 C3 CD BB DA 36 F1 23 3E D4 CD BB <br>
+                            DA 3E D3 21 F1 C3 CD BB DA 3E D4 21 2D C4 CD BB <br>
+                            DA 3E 7A 21 68 C4 01 14 00 CD 18 37 CD 31 0B F0 <br>
+                            D3 47 F0 D4 80 21 C8 C3 CD A4 DA F0 D3 21 04 C4 <br>
+                            CD A4 DA F0 D4 21 40 C4 CD A4 DA CD 67 38 F0 B3 <br>
+                            A7 28 D9 C9 E5 01 F3 FF 09 36 5D 23 F5 CD BB DA <br>
+                            16 10 F1 CB 3F 5F E1 2B C3 1A 2D CD BE DA CB 37 <br>
+                            F5 E6 0F C6 F6 30 02 C6 50 22 F1 C9
+                        </p>
+                        <h3>使い方</h3>
+                        <div class="box-flex">
+                            <div class="box-block">
+                                <img src="../img/bgb00058.bmp">
+                                <figcaption>実行例</figcaption>
+                            </div>
+                            <p>
+                                実行させると((0xFFD3)+(0xFFD4)),(0xFFD3),(0xFFD4)を表示させます。<br>
+                                上から<a href="https://youtu.be/dQ2QshoCsgY?si=jtOPCRVDvKe5uEDA&t=589">動画</a>でいうところのDSum、正乱数、負乱数です。<br>
+                                後期赤緑版でのみ対応しています。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reference">
+                <div class="card">
+                    <h2>参考・関連</h2>
+                    <ul>
+                        <li><a href="https://youtu.be/dQ2QshoCsgY?si=fJDUaQxd2ufyKhwc">【初代ポケモン】野生エンカウントで最高個体が出ない理由</a></li>
+                        <li><a href="http://wiki.pokemonspeedruns.com/index.php/Pok%C3%A9mon_Red/Blue/Yellow_DSum_Manipulation">Pokémon Red/Blue/Yellow DSum Manipulation - Pokemon Speedruns</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="cordsFooter"></footer>
+    <script type="module" src="../../common.js"></script>
+</body>
+</html>

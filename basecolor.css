@@ -1,0 +1,57 @@
+*{
+    /* --basecolor-dense2: #4e3f30; 
+    --basecolor-dense: #0ca5b0; 
+    --basecolor: #a5b3aa; 
+    --basecolor-thin: #f0e6c1; 
+    --basecolor-thin2: #fefeeb;  */
+    
+    /* --basecolor-dense2: #2e1437; 
+    --basecolor-dense: #51425f; 
+    --basecolor: #948e99; 
+    --basecolor-thin: #cad1c3; 
+    --basecolor-thin2: #e7eed0;  */
+
+    /* --basecolor-dense2: #4a4a4a; 
+    --basecolor-dense: #6f6f6f; 
+    --basecolor: #959595; 
+    --basecolor-thin: #bdbdbd; 
+    --basecolor-thin2: #e5e5e5;  */
+
+    /* --basecolor-dense2: #ffabab; 
+    --basecolor-dense: #ffdaab; 
+    --basecolor: #ddffab; 
+    --basecolor-thin: #abe4ff; 
+    --basecolor-thin2: #d9abff;  */
+    
+    /* --basecolor-dense2: #0e0b29; 
+    --basecolor-dense: #3b0032; 
+    --basecolor: #7d2948; 
+    --basecolor-thin: #ebc588; 
+    --basecolor-thin2: #ebeaa9;  */
+
+    /* --basecolor-dense2: #14424e; 
+    --basecolor-dense: #1d6474; 
+    --basecolor: #31a6c2; 
+    --basecolor-thin: #98d3e1; 
+    --basecolor-thin2: #d6edf3;  */
+    
+    /* --basecolor-dense2: #234d20; 
+    --basecolor-dense: #36802d; 
+    --basecolor: #77ab59; 
+    --basecolor-thin: #c9df8a; 
+    --basecolor-thin2: #f0f7da;  */
+
+    /* --basecolor-dense2: ; 
+    --basecolor-dense: ; 
+    --basecolor: ; 
+    --basecolor-thin: ; 
+    --basecolor-thin2: ;  */
+
+    ::selection{
+        background-color: black;
+        color: white;
+    }
+}
+
+
+  
