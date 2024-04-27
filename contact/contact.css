@@ -1,6 +1,7 @@
 .contactContent{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    display: flex;
+    flex-direction: row;
+    /* grid-template-columns: repeat(auto-fit, minmax(10px, 1fr)); */
 
     img{
         height: 80px;
@@ -10,5 +11,14 @@
 
     .card{
         margin: 30px;
+    }
+}
+
+@media screen and (max-width: 700px){
+    .contactContent{
+        flex-direction: column;
+        img{
+            height: 40px;
+        }
     }
 }
