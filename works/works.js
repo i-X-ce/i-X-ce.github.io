@@ -2,6 +2,9 @@ const contentButtons = document.getElementsByName("workslist")
 const contentIds = ["movieContents", "articleContents", "cordContents", "anyContents"]
 
 {
+    if (!localStorage.getItem("selectedNumW")){
+        localStorage.setItem("selectedNumW") = 0;
+    }
     for (var i = 0; i < contentButtons.length; i++){
         const selectedNum = localStorage.getItem("selectedNumW");
         if (selectedNum == i){
