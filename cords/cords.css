@@ -143,6 +143,8 @@ header{
         li:hover::before{
             width: 100%;
         }
+
+        
     }
 
     .menu-content::-webkit-scrollbar{
@@ -153,6 +155,17 @@ header{
         border: solid var(--basecolor-dense2) 1px;
         border-right: 0px;
         border-radius: 10px;
+    }
+
+    .home-btn{
+        text-align: center;
+        position: absolute;
+        background-color: var(--basecolor-dense2);
+        color: var(--basecolor-thin2);
+        /* height: 30px; */
+        padding: 10px;
+        bottom: 0px;
+        width: calc(100% - 20px);
     }
 }
 
@@ -260,10 +273,10 @@ footer{
         }
 
         img{
-            width: max-content;
-            height: max-content;
-            margin: 0 20px;
-            border: solid var(--basecolor-dense2) 3px;
+            width: 100%;
+            object-fit: contain;
+            /* margin: 0 20px; */
+            /* border: solid var(--basecolor-dense2) 3px; */
         }
 
         figcaption{
@@ -332,5 +345,6 @@ footer{
 @media screen and (max-width: 830px) {
     .gridContener{
         grid-template-columns: 1fr;
+        margin: 10px;
     }
 }
