@@ -3,7 +3,7 @@ const contentIds = ["movieContents", "articleContents", "cordContents", "anyCont
 
 {
     if (!localStorage.getItem("selectedNumW")){
-        localStorage.setItem("selectedNumW") = 0;
+        localStorage.setItem("selectedNumW", 0);
     }
     for (var i = 0; i < contentButtons.length; i++){
         const selectedNum = localStorage.getItem("selectedNumW");
