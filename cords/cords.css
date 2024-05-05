@@ -120,23 +120,26 @@ header{
             position: relative;
             z-index: 0;
             transition: 0.3s;
+            left: 0px;
         }
 
         li:hover{
             color: var(--basecolor-thin2);
-            padding-left: 30px;
+            left: 20px;
         }
 
         li::before{
             content: "";
             position: absolute;
             top: 0px;
-            left: 0px;
+            left: -20px;
             display: block;
             background-color: var(--basecolor-dense2);
             width: 0px;
             height: 100%;
             z-index: -1;
+            border-top: var(--basecolor-thin2) solid 1px;
+            border-bottom: var(--basecolor) solid 1px;
             transition: 0.3s;
         }
 
