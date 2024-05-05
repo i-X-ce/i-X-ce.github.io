@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ6BB8NPYY"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HQ6BB8NPYY');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニドラン調整</title>
+    <!-- 記事の追加があるときは、works.htmlとcords/header.htmlにも追加しておくこと -->
+    <!-- 記事のHTMLファイルの先頭には3桁の数字で番号をふっておくこと -->
+    <!-- 
+        ---チェック事項---
+        1.ファイル名
+        1.title、日付の入力
+        3.headerのリストの追加
+        4.worksへの追加
+        (5.news、recomendへの追加)
+    -->
+</head>
+<body>
+    <header id="anyHearder"></header>
+    <script src="../any.js"></script>
+    <div class="contener">
+        <div class="title">
+            <p class="day">2024/05/05</p>
+            <h1>ニドラン調整</h1>
+        </div>
+        <div class="gridContener">
+            <div class="text">
+                <div class="card">
+                    <h2>説明</h2>
+                    <div class="text-content">
+                        <img src="../img/スクリーンショット 2024-05-05 110349.png" alt="">
+                        <p>
+                            <a href="../zip/nidoran.html">ポケスタ金銀の4倍速モードの黄版でニドラン♂を捕まえるための調整をするツール</a>を作りました。<br>
+                            黄版はフィールドにいるときも戦闘中でもDSumの動きが大体一定(計りなおしたらちょっと違った)なのでDSumの調整にはもってこいだと思っていたのですが、どうやら4倍速モードだと大幅に周期が違うらしいんですよね。<br>
+                            結局操作がそこそこ複雑になってしまいました。これじゃ赤緑青と変わらないじゃないか、困るなあ。多分赤緑青版の方はこのツールの数値を少し変えるだけでうまくいくと思います。<br>
+                            最初はWindowsアプリで作ろうと思っていましたが、非同期処理とやらがよくわからなかったのでJavaScriptの勉強もかねてこっちで作りました。<br>
+                            意外とこっちの方が楽に作れてよかったです。簡単なツールなら全部こっちでいいかもしれませんね。<br>
+                            とはいえこんな単純な仕組みを作るのに結構時間がかかりました。AIがいる生活は実に住みよいものです。ブラウザ上でもちゃんと動くはずですが心配であればローカルに落としてお使いください。
+                        </p>
+                        <h3>使い方</h3>
+                        <p>ツール下部に使い方が書いてあるのでそれをよく読んで使ってください。</p>
+                        <a href="../zip/nidoran.html" download="" class="download-btn box-center">ダウンロード</a>
+                    </div>
+                </div>
+            </div>
+            <div class="reference">
+                <div class="card">
+                    <h2>参考・関連</h2>
+                    <ul>
+                        <li><a href="../zip/nidoran.html">ニドラン調整</a></li>
+                        <li><a href="https://youtu.be/dQ2QshoCsgY?si=fJDUaQxd2ufyKhwc">【初代ポケモン】野生エンカウントで最高個体が出ない理由</a></li>
+                        <li><a href="https://youtu.be/i-cRZqxAWVM?si=INiOSssFt8XDkTBJ">【実況付き】ポケモンピカチュウ版 殿堂入り タイムアタック 39分13秒【ポケモンRTA 4倍速 初代ポケモン】</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="anyFooter"></footer>
+    <script type="module" src="../../common.js"></script>
+</body>
+</html>
