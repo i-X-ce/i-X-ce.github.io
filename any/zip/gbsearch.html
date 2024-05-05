@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBROMデータ検索ツール</title>
+</head>
+
+<body>
+    <div id="blind"></div>
+    <h1 class="title">GBROMデータ検索ツール</h1>
+    <span class="content">
+        <span class="flex-span"><input type="file" accept=".gb" id="rom-file"></span>
+        <span class="flex-span">
+            <input type="text" name="" id="search-data" pattern="[a-fA-F0-9]+" placeholder="検索データ" title="16進数を入力してください"
+                required>
+            <input type="button" value="検索" id="search-btn" onclick="pushedSearchBtn()">
+        </span>
+        <span class="flex-span">
+            <fieldset>
+                <legend>オプション</legend>
+                <input type="checkbox" id="bank-chk" checked onchange="changedChkBox()"><label for="bank-chk">バンク</label>
+                <input type="checkbox" id="hex-chk" checked onchange="changedChkBox()"><label for="hex-chk">16進数アドレス</label>
+                <input type="checkbox" id="dec-chk" checked onchange="changedChkBox()"><label for="dec-chk">10進数アドレス</label>
+            </fieldset>
+            <label class="bank-list">
+                <span>バンクを絞り込む</span>
+                <select name="bank" id="bank-slc" onchange="changeBankList()">
+                    <option value="-1" id="bank-slc-option-origin">全て表示</option>
+                </select>
+            </label>
+        </span>
+        <input type="button" id="copy-btn" value="コピー" onclick="pushedCopyBtn()">
+        <div class="output">
+            <h1 id="data-num">0件</h1>
+            <div id="search-result">
+                <div class="addres-card" id="addres-card-origin">
+                    <div class="addres-hex" style="display: block;"><span class="bank" style="display: inline;"></span><span
+                            class="splitter" style="display: inline;">:</span><span class="addres-hex-content"></span></div>
+                    <div class="addres-decimal" style="display: block;"></div>
+                </div>
+            </div>
+        </div>
+    </span>
+    <script>
+        const result = document.getElementById("search-result");
+        const addresCardTemp = document.getElementById("addres-card-origin").cloneNode(true);
+        const searchBtn = document.getElementById("search-btn");
+        const searchText = document.getElementById("search-data");
+        const romFile = document.getElementById("rom-file");
+        const bankChk = document.getElementById("bank-chk");
+        const hexChk = document.getElementById("hex-chk");
+        const decChk = document.getElementById("dec-chk");
+        const dataNum = document.getElementById("data-num");
+        const bankSlc = document.getElementById("bank-slc");
+        const blindDiv = document.getElementById("blind");
+
+        let file;
+        let addresList = [];
+
+        addresCardTemp.removeAttribute('id');
+        removeAllChiled(result);
+        romFile.addEventListener('change', function (e) {
+            file = e.target.files[0];
+            searchData();
+        });
+
+        window.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            blindDiv.style.display = "block";
+        });
+
+        window.addEventListener('drop', function(e){
+            blindDiv.style.display = "";
+            e.preventDefault();
+            if (e.dataTransfer.files[0].name.split('.').pop().toLowerCase() != "gb") return;
+            romFile.files = e.dataTransfer.files;
+            file = e.dataTransfer.files[0];
+        });
+
+        function removeAllChiled(parent) {
+            while (parent.firstElementChild) {
+                parent.removeChild(parent.firstElementChild);
+            }
+        }
+
+        function pushedSearchBtn() {
+            if (!/^[\da-fA-F]+$/g.test(searchText.value)) {
+                alert("16進数を入力してください。");
+                return;
+            }
+            if (searchText.value.length % 2 != 0) {
+                alert("偶数桁を入力してください。");
+                return;
+            }
+            searchData();
+        }
+
+        function pushedCopyBtn() {
+            var s = "";
+            addresList.forEach(a => {
+                if (addresConvertB(a) != bankSlc.options[bankSlc.selectedIndex].value) return;
+                var brf = false;
+                if (bankChk.checked) {
+                    s += addresConvertB(a);
+                    brf = true;
+                }
+                if (hexChk.checked) {
+                    if (brf) s += ':';
+                    s += addresConvertA(a);
+                    brf = true;
+                }
+                if (decChk.checked) {
+                    if (brf) s += ':';
+                    s += a.toString();
+                }
+                s += "\n";
+            });
+            navigator.clipboard.writeText(s);
+        }
+
+        //データの検索と要素の追加
+        function searchData() {
+            if (!file){
+                alert("ファイルを選択してください。")
+                return;
+            }
+            if (!/^[\da-fA-F]+$/g.test(searchText.value) || searchText.value.length % 2 != 0) return; //ファイルを変えた時も実行させるのでこれも必要
+            removeAllChiled(result);
+            const reader = new FileReader();
+
+            //readAsBinaryStringが起きた時に実行されるらしい
+            reader.onload = e => {
+                addresList = [];
+                let data = e.target.result;
+                let dataArray = new Uint8Array(data.length);
+                let searchArray = new Uint8Array(searchText.value.length / 2);
+
+                //ROMデータと検索文字列をbyteに直す
+                for (var i = 0; i < data.length; i++) {
+                    dataArray[i] = data.charCodeAt(i);
+                }
+                for (var i = 0; i < searchText.value.length / 2; i++) {
+                    searchArray[i] = parseInt(searchText.value.substr(i * 2, 2), 16);
+                }
+
+                for (var i = 0; i < data.length; i++) {
+                    if (dataArray[i] == searchArray[0]) {
+                        var ok = true;
+                        for (var j = 0; j < searchArray.length; j++) {
+                            if (dataArray[i + j] != searchArray[j] ||
+                                Math.floor(i / 0x4000) != Math.floor((i + j) / 0x4000) //バンクをまたいだ検索をはじく
+                            ) {
+                                ok = false;
+                                break;
+                            }
+                        }
+                        if (ok) {
+                            addresList.push(i);
+                        }
+                    }
+                }
+                addresList.forEach(value => {
+                    addAddressCard(value);
+                });
+
+                dataNum.innerText = addresList.length + "件";
+                addBankOption();
+                changedChkBox();
+            }
+
+            reader.readAsBinaryString(file);
+        }
+
+        // 検索した要素を追加する
+        function addAddressCard(value) {
+            var bankS = addresConvertB(value);
+            var addressS = addresConvertA(value);
+
+            var card = addresCardTemp.cloneNode(true);
+            card.getElementsByClassName("bank")[0].innerText = bankS;
+            card.getElementsByClassName("addres-hex-content")[0].innerText = addressS;
+            card.getElementsByClassName("addres-decimal")[0].innerText = value;
+            card.setAttribute('data-bank', bankS);
+            result.appendChild(card);
+        }
+
+        //10進数のアドレスを16進数に変換する
+        function addresConvertA(value) {
+            var bf = value >= 0x4000 ? value % 0x4000 + 0x4000 : value % 0x4000;
+            return bf.toString(16).padStart(4, '0').toUpperCase();
+        }
+
+        //10進数のアドレスのバンク部分を16進数に変換する
+        function addresConvertB(value) {
+            var bf = Math.floor(value / 0x4000);
+            return bf.toString(16).padStart(2, '0').toUpperCase();
+        }
+
+        //addresListをもとにバンク絞り込みに要素を追加する 
+        function addBankOption() {
+            var opt = document.getElementById("bank-slc-option-origin");
+            opt.selected = true;
+            if (addresList.length == 0) return;
+
+            var preBank = "";
+            var cuBank;
+            removeAllChiled(bankSlc);
+            bankSlc.appendChild(opt);
+
+            addresList.forEach(value => {
+                cuBank = addresConvertB(value);
+                if (preBank != cuBank) {
+                    var optbf = opt.cloneNode(true);
+                    optbf.removeAttribute("id");
+                    optbf.value = cuBank; optbf.innerText = cuBank;
+                    bankSlc.appendChild(optbf);
+                }
+                preBank = cuBank;
+            });
+        }
+
+        function changedChkBox(){
+            var elements = document.getElementsByClassName("bank");
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display =  bankChk.checked ? "" : "none";
+            }
+            elements = document.getElementsByClassName("addres-hex-content");
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display =  hexChk.checked ? "" : "none";
+            }
+            elements = document.getElementsByClassName("addres-decimal");
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display =  decChk.checked ? "" : "none";
+            }
+            elements = document.getElementsByClassName("splitter");
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display = (bankChk.checked & hexChk.checked) ? "" : "none";
+            }
+        }
+
+        function changeBankList(){
+            var elements = document.getElementsByClassName("addres-card");
+            var bankValue = bankSlc.options[bankSlc.selectedIndex].value;
+            var cnt = 0;
+            for (var i = 0; i < elements.length; i++){
+                if (bankValue == "-1"){
+                    elements[i].style.display = "";
+                    cnt++
+                }else{
+                    if (elements[i].getAttribute("data-bank") == bankValue){
+                        elements[i].style.display = "";
+                        cnt++;
+                    }else{
+                        elements[i].style.display = "none";
+                    }
+                }
+            }
+            dataNum.innerText = cnt + "件";
+        }
+
+    </script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            background-color: var(--basecolor-thin2);
+
+            --basecolor-thin2: #e5e5e5;
+            --basecolor-thin: #b2b2b2;
+            --basecolor: #8c8c8c;
+            --basecolor-dense: #595959;
+            --basecolor-dense2: #262626;
+        }
+
+        #blind{
+            display: none;
+            position: absolute;
+            top: 0px;
+            width: 100%;
+            height: 200%;
+            opacity: 0.5;
+            z-index: 1;
+            background-color: black;
+        }
+
+        .content{
+            display: block;
+            padding: 10%;
+            padding-top: 5%;
+        }
+
+        .title{
+            display: block;
+            margin: 30px;
+            margin-top: 50px;
+            padding-left: 30px;
+            border-bottom: solid 3px var(--basecolor-dense2);
+            font-size: 50px;
+        }
+
+        .flex-span {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .block-span {
+            display: block;
+        }
+
+        input[type='file'] {
+            margin: 10px;
+            color: var(--basecolor-dense2);
+            cursor: pointer;
+            border: 1px solid var(--basecolor);
+            border-radius: 1rem;
+            padding-right: 0.5rem;
+            width: 24rem;
+        }
+
+        ::file-selector-button,
+        ::-webkit-file-upload-button {
+            background-color: var(--basecolor-thin);
+            color: var(--basecolor-dense2);
+            border: none;
+            cursor: pointer;
+            border-right: 1px solid var(--basecolor-thin);
+            padding: 0.25rem 1rem;
+            margin-right: 1rem;
+        }
+
+        input[type='text'] {
+            display: block;
+            flex: 70%;
+            outline: none;
+            border: none;
+            border-bottom: solid 1px var(--basecolor-dense);
+            font-size: 20px;
+            margin: 10px;
+        }
+
+        input[type='button'] {
+            display: block;
+            flex: 30%;
+            margin: 10px;
+            padding: 10px;
+            background-color: var(--basecolor-thin2);
+            color: var(--basecolor-dense);
+            border: solid 1px var(--basecolor-dense2);
+            border-radius: 100vh;
+            width: calc(100% - 20px);
+        }
+
+        input[type='button']:hover {
+            background-color: var(--basecolor-dense2);
+            color: var(--basecolor-thin2);
+        }
+
+        input[type='checkbox'] {
+            display: none;
+        }
+
+        fieldset {
+            flex: 70%;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+
+            legend {
+                margin-left: 20px;
+                padding: 0px 20px;
+                border-left: solid 3px var(--basecolor-dense);
+                border-right: solid 3px var(--basecolor-dense);
+            }
+
+            label {
+                position: relative;
+                top: -3px;
+                left: -3px;
+                margin: 10px;
+                padding: 15px;
+                color: var(--basecolor-dense2);
+                border: solid 1px var(--basecolor-dense2);
+                background-color: var(--basecolor-thin);
+                border-radius: 10px;
+                box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+            }
+
+            input[type='checkbox']:checked+label {
+                background-color: var(--basecolor-dense2);
+                color: var(--basecolor-thin);
+                box-shadow: none;
+                top: 0px;
+                left: 0px;
+            }
+        }
+
+        .bank-list {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin: auto 0px;
+            border-radius: 100vh;
+            border: solid 1px var(--basecolor-dense2);
+            overflow: hidden;
+
+            span {
+                display: block;
+                background-color: var(--basecolor-dense2);
+                color: var(--basecolor-thin2);
+                text-align: center;
+                padding: 10px;
+            }
+
+            select {
+                width: 100%;
+                outline: none;
+                border: none;
+                font-size: 17px;
+            }
+        }
+
+        .output{
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            border: solid 1px var(--basecolor-dense2);
+            border-radius: 20px;
+            min-height: 50vh;
+            
+            #data-num{
+                padding: 5px 20px;
+                background-color: var(--basecolor-dense2);
+                color: var(--basecolor-thin2);
+                border-radius: 20px 20px 0px 0px;
+            }
+
+            #search-result{
+                position: relative;
+                display: grid;
+                padding: 10px;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                border-radius: 20px;
+                text-align: center;
+
+                .addres-card{
+                    border: solid 1px var(--basecolor-dense2);
+                    margin: 10px;
+                    border-radius: 10px 0px 10px 0px;
+                    overflow: hidden;
+                }
+
+                .addres-hex{
+                    background-color: var(--basecolor);
+                    color: var(--basecolor-thin2);
+
+                    span{
+                        background-color: var(--basecolor);
+                        color: var(--basecolor-thin2);
+                    }
+                }
+
+            }
+        }
+
+    </style>
+</body>
+
+</html>
