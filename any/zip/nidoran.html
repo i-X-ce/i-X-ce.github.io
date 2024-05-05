@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニドラン調整</title>
+</head>
+<body>
+    <h1>ニドラン調整</h1>
+    <div class="contener">
+        <div class="colmn">
+            <div class="startCounter-base">
+                <h2 style="display: inline;">スタートカウント</h2>
+                <input type="number" id="startTimeNumber">ms
+                <div class="startCounter-bar"><div class="bar" id="startCounterBar"></div><span id="startTimer">0</span></p></div>
+            </div>
+            <div class="DSumCounter-base">
+                <h2 id="dsumH1">DSum</h2>
+                <div class="DSumCounter-bar"><div id="markBar1"></div><div id="markBarCurrent"></div><span id="DSumCounter">0</span></div>
+                増加周期 : <input type="number" id="dsumIntervalAddNumber"> ms <br>
+                減少周期 : <input type="number" id="dsumIntervalSubNumber"> ms <br>
+                戦闘周期 : <input type="number" id="encIntervalSubNumber"> ms <br>
+                戦闘秒数 : <input type="number" id="encSecNumber"> ms <br>
+                初期DSum : <input type="number" id="initDsum">
+            </div>
+        </div>
+        <div class="colmn btns">
+            <input type="checkbox" id="encChk"><label for="encChk">戦闘中(Shift)</label>
+            <span class="flex">
+                <input type="button" id="resetBtn" value="リスタート(Del)">
+                <input type="button" id="encBtn" value="エンカウント(Enter)">
+            </span>
+            <input type="button" id="upBtn" value="カウントアップ(Backspace)" style="width: calc(100% - 10px);">
+            <span class="flex">
+                <input type="button" id="saveBtn" value="セーブ">
+                <input type="button" id="defaultBtn" value="デフォルトに戻す">
+            </span>
+        </div>
+    </div>
+    <div class="instruction">
+        <h1>説明書</h1>
+        <p>ポケモンスタジアム金銀の4倍速モードの黄版でニドラン調整をするためのプログラムです。</p>
+        <h2>各種パラメータ</h2>
+        <ul>
+            <li>スタートカウント</li>
+            <p>カウントアップボタンを押してからDSumの増加を始めるまで</p>
+            <li>増加周期</li>
+            <p>DSumの増加周期です。一周期の秒数を入力します。</p>
+            <li>減少周期</li>
+            <p>DSumの減少周期です。一周期の秒数を入力します。</p>
+            <li>戦闘周期</li>
+            <p>DSumの戦闘時の周期です。一周期の秒数を入力します。</p>
+            <li>戦闘秒数</li>
+            <p>エンカウント1回あたりの秒数です。</p>
+            <li>初期DSum</li>
+            <p>リセットしたときに入るDSumの値です。</p>
+        </ul>
+        <h2>ボタン</h2>
+        <ul>
+            <li>戦闘中</li>
+            <p>このチェックボックスが押されている間はエンカウント周期でDSumが変化します。ライバル戦など戦闘時間が不定な場合に使います。</p>
+            <li>リスタート</li>
+            <p>スタートカウント、DSumをリセットして再カウントします。</p>
+            <li>エンカウント</li>
+            <p>エンカウントでずれたDSumを合わせます。野生エンカウントなど戦闘時間が一定の時に使います。</p>
+            <li>カウントアップ</li>
+            <p>DSum増加までのカウントダウンを始めます。DSumを増加させたいときに使います。</p>
+            <li>セーブ</li>
+            <p>各種パラメータを保存します。</p>
+            <li>デフォルトに戻す</li>
+            <p>各種パラメータを規定値に戻します。</p>
+        </ul>
+        <h2>使い方</h2>
+        <ol>
+            <li>各種パラメータを設定します。</li>
+            <li>ゲームのソフトリセットとともにリスタートを押し、DSumとスタートカウントをリセットさせます。</li>
+            <li>スタートカウントが0になると同時にフィールドに出るように調整します。</li>
+            <li>ライバル戦など戦闘時間が不定の時は『戦闘中』にチェックを付けてDSumを合わせます。</li>
+            <li>エンカウントが起きた時は『エンカウント』を押してDSumを合わせます。</li>
+            <li>DSumのバーが赤いエリアに入った時に草むらで歩き、エンカウントします。</li>
+        </ol>
+    </div>
+
+    <script>
+        let startF;
+        load();
+        reset();
+        document.getElementById('resetBtn').addEventListener('click', reset);
+        document.getElementById('saveBtn').addEventListener('click', save);
+        document.getElementById('defaultBtn').addEventListener('click', defaultBtnPushed);
+        document.getElementById('encBtn').addEventListener('click', encBtnPushed);
+        document.getElementById('upBtn').addEventListener('click', upBtnPushed);
+
+        function main(){
+            const currentTime = performance.now();
+            const addTime = currentTime - preTime;
+            preTime = currentTime;
+
+            if (startTimerValue < 0){
+                if (document.getElementById('encChk').checked){
+                    dsumValue += calcDsumValue(addTime, dsumintervalEnc);
+                }else{
+                    dsumValue += calcDsumValue(addTime, dsumIntervalAdd);
+                }
+            }else{
+                if (!startF) startTimerValue -= addTime;
+                dsumValue -= calcDsumValue(addTime, dsumIntervalSub);
+            }
+
+            dsumValue = (dsumValue % 256 + 256) % 256;
+            document.getElementById('startTimer').innerText = Math.max(0, startTimerValue / 1000).toFixed(2);
+            document.getElementById('DSumCounter').innerText = dsumValue.toFixed(0);
+            document.getElementById('startCounterBar').style.width = 100 * (startTimerValue / document.getElementById("startTimeNumber").value) + '%';
+            document.getElementById('markBarCurrent').style.left = 100 * (dsumValue / 256) + '%';
+            
+            if (241 <= dsumValue && dsumValue <= 253){
+                document.getElementById('markBarCurrent').style.borderColor = "red";
+                document.getElementById('dsumH1').style.backgroundColor = "red";
+                document.getElementById('dsumH1').style.color = "white";
+            }else{
+                document.getElementById('markBarCurrent').style.borderColor = "";
+                document.getElementById('dsumH1').style.backgroundColor = "";
+                document.getElementById('dsumH1').style.color = "";
+            }
+        }
+
+        function calcDsumValue(value, interval){
+            return value * 256 / interval;
+        }
+
+        function reset(){
+            dsumValue = 0;
+            dsumIntervalAdd = document.getElementById("dsumIntervalAddNumber").value;
+            dsumIntervalSub = document.getElementById("dsumIntervalSubNumber").value;
+            startTimerValue = document.getElementById('startTimeNumber').value; //ms
+            dsumintervalEnc = document.getElementById('encIntervalSubNumber').value;
+            encSec = document.getElementById('encSecNumber').value;
+            dsumValue = document.getElementById('initDsum').value;
+            preTime = performance.now();
+            startF = true;
+        }
+
+        function save(){
+            localStorage.setItem("dsumIntervalAddNumber", document.getElementById("dsumIntervalAddNumber").value);
+            localStorage.setItem("dsumIntervalSubNumber", document.getElementById("dsumIntervalSubNumber").value);
+            localStorage.setItem("startTimeNumber", document.getElementById('startTimeNumber').value);
+            localStorage.setItem("encIntervalSubNumber", document.getElementById('encIntervalSubNumber').value);
+            localStorage.setItem("encSecNumber", document.getElementById('encSecNumber').value);
+            localStorage.setItem("initDsum", document.getElementById('initDsum').value);
+        }
+
+        function load(){
+            if (!localStorage.getItem("dsumIntervalAddNumber")){
+                defaultBtnPushed();
+                return;
+            }
+            document.getElementById("dsumIntervalAddNumber").value = localStorage.getItem("dsumIntervalAddNumber");
+            document.getElementById("dsumIntervalSubNumber").value = localStorage.getItem("dsumIntervalSubNumber");
+            document.getElementById("startTimeNumber").value = localStorage.getItem("startTimeNumber");
+            document.getElementById("encIntervalSubNumber").value = localStorage.getItem("encIntervalSubNumber");
+            document.getElementById("encSecNumber").value = localStorage.getItem("encSecNumber");
+            document.getElementById("initDsum").value = localStorage.getItem("initDsum");
+        }
+
+        function defaultBtnPushed(){
+            document.getElementById("dsumIntervalAddNumber").value = 2220;
+            document.getElementById("dsumIntervalSubNumber").value = 2050;
+            document.getElementById("startTimeNumber").value = 1100;
+            document.getElementById("encIntervalSubNumber").value = 4270;
+            document.getElementById("encSecNumber").value = 3100;
+            document.getElementById("initDsum").value = 0;
+            reset();
+        }
+
+        function encBtnPushed(){
+            dsumValue -= calcDsumValue(encSec, dsumintervalEnc) - calcDsumValue(encSec, dsumIntervalAdd);
+        }
+
+        function upBtnPushed(){
+            startF = false;
+        }
+
+        setInterval(main, 1);
+
+        document.addEventListener('keydown', function(event){
+            switch (event.key) {
+                case 'Enter':
+                    document.getElementById('encBtn').click();
+                    break;
+                case 'Shift':
+                    document.getElementById('encChk').checked = !document.getElementById('encChk').checked;
+                    break;
+                case 'Delete':
+                    document.getElementById('resetBtn').click();
+                    break;
+                case 'Backspace':
+                    document.getElementById('upBtn').click();
+                    break;
+                default:
+                    break;
+            }
+        });
+
+    </script>
+
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h1{
+            margin: 20px;
+            text-align: center;
+        }
+
+        .contener{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .btns{
+            display: block;
+            position: relative;
+
+            input{
+                margin: 5px;
+            }
+
+            #resetBtn,
+            #encBtn{
+                height: 300px;
+                width: 100%;
+            }
+
+            span{
+                display: flex;
+            }
+
+            #saveBtn,
+            #defaultBtn{
+                width: 50%;
+                height: 50px;
+            }
+        }
+
+        .startCounter-base{
+            margin: 20px;
+
+            .startCounter-bar{
+                position: relative;
+                width: 100%;
+                height: 50px;
+                border: 1px solid black;
+                font-size: 30px;
+
+                .bar{
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    width: 100%;
+                    height: 100%;
+                    background-color: skyblue;
+                    z-index: -1;
+                }
+            }
+            
+
+            
+        }
+
+        .DSumCounter-base{
+            margin: 20px;
+
+            .DSumCounter-bar{
+                position: relative;
+                width: 100%;
+                height: 50px;
+                border: 1px solid black;
+                font-size: 30px;
+
+                #markBar1,
+                #markBar2,
+                #markBarCurrent{
+                    position: absolute;
+                    width: 0px;
+                    height: 100%;
+                    border-left: 3px solid red;
+                    top: 0px;
+                }
+
+                #markBarCurrent{
+                    left: 0px;
+                    border-color: blue;
+                }
+
+                #markBar1{
+                    left: 94%;
+                    width: 5%;
+                    background-color: red;
+                    opacity: 0.5;
+                }
+
+                #markBar2{
+                    left: 99%;
+                }
+            }
+        }
+
+        .instruction{
+            margin: 30px;
+            border-top: solid 5px black;
+
+            h2{
+                margin-top: 20px;
+                padding: 10px;
+                border-left: solid 15px black;
+                background-color: gainsboro;
+            }
+
+            ul,
+            ol{
+                margin: 20px;
+                margin-top: 5px;
+
+                li{
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+            }
+
+            ol{
+                li{
+                    text-decoration: none;
+                    font-weight: 100;
+                }
+            }
+
+        }
+
+    </style>
+</body>
+</html>
