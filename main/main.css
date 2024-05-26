@@ -1,32 +1,32 @@
-html{
+html {
     margin: 0px;
     padding: 0px;
     background-color: var(--basecolor-thin2);
 }
 
-html body{
+html body {
     margin: 0px;
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
 }
 
-a{
+a {
     text-decoration: none;
     color: inherit;
     transition: 0.3s;
 }
 
-li{
+li {
     list-style: none;
 }
 
-a:hover{
+a:hover {
     opacity: 50%;
     transition: 0.3s;
 }
 
-header{
+header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,22 +34,22 @@ header{
     background-color: var(--basecolor);
     color: var(--basecolor-thin2);
 
-    h1{
+    h1 {
         margin-left: 2%;
     }
 
-    ul{
+    ul {
         display: flex;
         align-items: center;
 
-        li{
+        li {
             margin: 20px;
             list-style: none;
         }
     }
 }
 
-.card{
+.card {
     display: grid;
     margin: 50px;
     border-top-left-radius: 20px;
@@ -60,10 +60,11 @@ header{
     bottom: 0px;
     transition: 0.3s;
 
-    h2{
+    h2 {
         color: var(--basecolor-thin2);
     }
-    p{
+
+    p {
         margin: 0px;
         padding: 20px;
         width: calc(100% - 40px);
@@ -73,41 +74,41 @@ header{
     }
 }
 
-.card:hover{
+.card:hover {
     right: 5px;
     bottom: 5px;
     box-shadow: 10px 10px 3px 0px rgba(0, 0, 0, 0.3);
 }
 
-#file{
+#file {
     margin: 0px;
     padding: 0px;
 }
 
-h1{
+h1 {
     font-size: 32px;
 }
 
-.column{
+.column {
     margin: 10px;
     padding: 10px;
 }
 
-nav input{
+nav input {
     display: none;
 }
 
-nav ul li{
+nav ul li {
     border-bottom: transparent 3px solid;
     transition: 0.3s;
 }
 
-.navBtn{
+.navBtn {
     position: relative;
     z-index: 1;
 }
 
-.navBtn::before{
+.navBtn::before {
     content: '';
     position: absolute;
     display: block;
@@ -121,71 +122,133 @@ nav ul li{
     transition: 0.3s;
 }
 
-.navBtn:hover::before{
+.navBtn:hover::before {
     width: 100%;
 }
 
-nav ul input:checked + label li{
+nav ul input:checked+label li {
     border-bottom: var(--basecolor-dense2) 3px solid;
 }
 
-.content{
+.content {
     overflow: hidden;
     opacity: 1;
     transition: 0.3s;
 }
 
-.content2{
+.content2 {
     flex: 1;
 
-    div{
+    div {
         position: relative;
         bottom: 0px;
     }
 }
 
-footer{
+footer {
     background-color: var(--basecolor-dense);
     color: var(--basecolor-thin2);
     text-align: center;
 
     h1,
     li,
-    ul{
+    ul {
         margin: 0px;
         padding: 0px;
     }
 
-    .links{
+    .links {
         display: flex;
-        justify-content: space-between;
+        text-align: left;
+        justify-content: center;
+
+        .link-colum {
+            margin: 1rem 2%;
+
+            input[type='checkbox'] {
+                display: none;
+            }
+
+            h3 {
+                margin-bottom: 0.3rem;
+                border-bottom: 1px solid var(--basecolor);
+                color: var(--basecolor-thin2);
+            }
+
+            .link-row {
+                position: relative;
+                display: block;
+            }
+
+            ul {
+                overflow: hidden;
+                padding-left: 0.3rem;
+
+                li {
+                    color: var(--basecolor-thin);
+                }
+            }
+        }
     }
 
-    h1{
+    h1 {
         background-color: var(--basecolor-dense2);
-        font-size: 24px;
+        color: var(--basecolor);
+        font-size: 1rem;
+        padding: 0.5rem;
     }
 
-    ul{
-       flex: 1; 
+    ul {
+        flex: 1;
+    }
+
+    .down-btn {
+        position: absolute;
+        right: 10px;
+        opacity: 0;
     }
 
 }
 
 @media screen and (max-width: 700px) {
-   header{
-    flex-direction: column;
-    h1{
-        margin: 0px;
-    }
-    ul{
-        margin: 0px;
-        padding: 0px;
-        li{
-            margin: 10px;
-            font-size: 15px;
+    header {
+        flex-direction: column;
+
+        h1 {
+            margin: 0px;
+        }
+
+        ul {
+            margin: 0px;
+            padding: 0px;
+
+            li {
+                margin: 10px;
+                font-size: 15px;
+            }
         }
     }
-    
-   }
+
+    footer {
+        .links {
+            flex-direction: column;
+
+            .link-colum {
+                margin: 0px 20px;
+            }
+
+            .down-btn{
+                opacity: 1;
+            }
+
+            ul {
+                max-height: 0vh;
+                transition: 0.3s;
+            }
+
+            input[type='checkbox']:checked+ul {
+                max-height: 100vh;
+            }
+        }
+    }
 }
