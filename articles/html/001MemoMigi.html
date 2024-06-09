@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ6BB8NPYY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HQ6BB8NPYY');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>縦横無尽バグメモ</title>
+    <!-- 記事の追加があるときは、works.htmlとcords/header.htmlにも追加しておくこと -->
+    <!-- 記事のHTMLファイルの先頭には3桁の数字で番号をふっておくこと -->
+    <!-- 
+        ---チェック事項---
+        1.ファイル名
+        1.title、日付の入力
+        3.headerのリストの追加
+        4.worksへの追加
+        (5.news、recomendへの追加)
+        6.mainのfooterへ追加
+        あげるのは記事.htmlとheader.htmlとindex.htmlとその他ファイル、画像
+    -->
+</head>
+
+<body>
+    <header id="articlesHearder"></header>
+    <script src="../articles.js"></script>
+    <div class="contener">
+        <div class="title">
+            <p class="day">2024/06/09</p>
+            <h1>縦横無尽バグメモ</h1>
+        </div>
+        <div class="gridContener">
+            <div class="text">
+                <div class="card">
+                    <h2>説明</h2>
+                    <div class="text-content">
+                        <p><a href="https://youtu.be/QiLBt2Fv_Vc">この動画</a>を作るときにメモしておいたものです。</p>
+                        <p>そのままコピペしただけのものなので見にくいと思いますが、良ければどうぞ。</p>
+                        <h3>メモ</h3>
+                        <p class="hex">
+                            <a href="https://w.atwiki.jp/pokemonbug/pages/40.html">https://w.atwiki.jp/pokemonbug/pages/40.html</a><br>
+                            <a href="https://hakuda2.web.fc2.com/wario/poke1/k36.html">https://hakuda2.web.fc2.com/wario/poke1/k36.html<br></a>
+                            <a href="https://youtu.be/VWGf7VKNtOM?si=n3J6MqzGpk_-034W">https://youtu.be/VWGf7VKNtOM?si=n3J6MqzGpk_-034W<br></a>
+                            <a href="https://glitchcity.wiki/wiki/Brock_through_walls">https://glitchcity.wiki/wiki/Brock_through_walls<br></a>
+                            <a href="https://web.archive.org/web/20150428073306/http://pokemonbug.oh.land.to/dat/dat5.html">https://web.archive.org/web/20150428073306/http://pokemonbug.oh.land.to/dat/dat5.html<br></a>
+                            <a href="https://youtu.be/Xmqrn0pGQFI?si=IDtPxesMFcqW-yn4">https://youtu.be/Xmqrn0pGQFI?si=IDtPxesMFcqW-yn4</a><br>
+                            <br>
+                            06:7E85　ニビの主人公の圧縮移動データ<br>
+                            06:7E92　ニビのNPC圧縮移動データ？<br>
+                            3544　圧縮移動データ解凍　HL,解凍先　DE,データ元<br>
+                            06:7E39　ニビの歩行ルーチン開始<br>
+                            1E0A　メインループ<br>
+                            1E58　ボタン入力関連<br>
+                            294C　フィールドのボタン入力<br>
+                            2A34　マップスクリプト<br>
+                            3DB5　HLのテーブルからA番のアドレスに飛ぶ<br>
+                            3196　↑のやつの特別バージョン　というより近づいてくるNPCがいるところでは割と普通に使われているらしい（D6B2bit4が立ってたらD97Cをスクリプト番号として使う）D973は何？<br>
+                            D71B　グレンの開くドアフラグ<br>
+                            31B5　名前入れるルーチン　CF59・ジム名　CF5E・ジムリーダー名<br>
+                            <br>
+                            <br>
+                            CCD2＝主人公が進む距離<br>
+                            CCD3～主人公の移動データ（後ろから読む）　00一瞬待機,10→,20←,40↑,80↓　ボタンのbit通りに動く　<br>
+                            <br>
+                            CF0B　CC57をテーブルとしてここに入ってた番号のアドレスに飛ぶよ<br>
+                            CC57　ここをテーブルとして(CF0B)番目のアドレスに飛ぶよ<br>
+                            CC58　バンク<br>
+                            <br>
+                            294C　スクリプト関連　CF0B実行もここ（CF0B実行が先）<br>
+                            その下にメニュー開く分岐がある<br>
+                            <br>
+                            CD5B　NPC歩いてきてるよフラグとか<br>
+                            <br>
+                            D6AFのbit7を立ててCD38に歩数入れてCCD3～逆順に操作データを入れると主人公が歩き出す<br>
+                            <br>
+                            1E0A　メインループ操作分岐<br>
+                            ↓<br>
+                            294C{<br>
+                            3144　CF0B実行<br>
+                            ↓<br>
+                            2A3A~　マップスクリプト<br>
+                            }<br>
+                            ↓<br>
+                            メニューとか<br>
+                            <br>
+                            0D:7DD3　ニビのNPCの動きの分岐　ここの検索がうまくいかないからRAMまで伸びてくる CC60~<br>
+                            こっちは圧縮されていない<br>
+                            D0F4　（歩くときとかのテンポラリ領域）恐らく主人公の移動データのポインタテーブルを指定するためのアドレス<br>
+                            牛アイコンのTileNoが24hでY座標が10hなので、これが主人公の座標と一致するから<br>
+                            <br>
+                            CF0B実行はCC57に値が入っていると起きる<br>
+                            はみ出したときにCD66の値が変わる<br>
+                            CD3B　強制移動中(D6AFbit7)有効になるボタンのbit？ CD66もクリアすると普通に動かせる　謎　通常00にクリアしかしていないように見えるが…<br>
+                            3E8B(a:4F)　(D0F4)や座標をもとに主人公の歩行データを書き込む<br>
+                            強制移動はボタン入力を強引に動かしている感じ。歩行データというよりはボタン入力データという方が正確かも。<br>
+                            <br>
+                            1E54　歩行コマンド分岐（というよりメインループの入力分岐部分）<br>
+                            <br>
+                            0C47　01AFが黄版入力？黄版は前フレームと今フレームでの差分を取って更新されていた場合入力が入る仕組みになっているからできない　と思っていたけど単純にCD66ロックがしっかりしているだけっぽいな…なんだよ…赤緑だとF0だけど黄版だとFC<br>
+                            <br>
+                            294C　D6AF判定とかのやつ<br>
+                            <br>
+                            CC57は1,2,3まで対応<br>
+                            1 オーキド連行<br>
+                            2 ニビ博物館の人<br>
+                            3 ニビ邪魔な人<br>
+                            <br>
+                            <br>
+                            自動歩行自体はD6AFとCD38と歩行データのみで可能だった　じゃあ何のためのCC57？？？<br>
+                            CC57は歩行データを張るために必要だったりする。一応自動歩行終了時の処理もあるみたいだけど、これはD6AFのチェック(294C)でやってくれそうなもんだから全く用途がわからん<br>
+                            もしかしたらNPCと同時に移動があるイベントはCC57なのかもしれない<br>
+                            <br>
+                            06:5941<br>
+                            え……！<br>
+                            そりゃ　ぜったい<br>
+                            いった　ほうが　いい！<br>
+                            <br>
+                            CD3Bに届くにはCCF9から数えて66バイト必要 CCD3~<br>
+                            xy CCF9~ 3B CD66 データ量<br>
+                            -------------------------------<br>
+                            10 CE64 4F 00 401<br>
+                            20 CD7F B2 0F 172<br>
+                            30 CF4E 79 88 635<br>
+                            40 CF59 69 0F 286<br>
+                            50 CDD9 4B BF 262<br>
+                            60 CD06 33<br>
+                            <br>
+                            3E8B(22)と3E8B(20)はオーキド連行と研究所のライバル移動の時しか使われていないっぽい　無駄に見える<br>
+                            なんでNPC移動を共通のものにしていなかった？主人公の移動方法も複数あるのが謎　そういうのまとめといてよ<br>
+                            オーキド連行イベントでオーキドが近づいてくる移動ルートはデータではなく計算で出している　なんで？？<br>
+                            恐らく研究所でのライバルの移動も同様　なんで？？<br>
+                            <br>
+                            ニビの座標ごとの歩行データ　バンクは0d: 7E38~<br>
+                            10,22 7E4C<br>
+                            11,23 7E51<br>
+                            12,25 567E<br>
+                            13,25 7E62<br>
+                            11,24 7E67<br>
+                            10224C7E1123517E1225567E1325627E1124677E<br>
+                            スクリプトでの座標の並び<br>
+                            1123,1124,1225,1325<br>
+                            <br>
+                            297A<br>
+                            FFB4とCD3Bの論理積が00でない場合、強制移動がストップして入力が利くようになるが、Aボタンは会話とかの分岐があって十字キーが利かない<br>
+                            <br>
+                            D5D2　ワタルイベントスクリプト番号<br>
+                            D5CA　殿堂入りイベントスクリプト番号<br>
+                            ワタルイベントマス<br>
+                            0105,0206,0B05,0B06,1018,FF<br>
+                            <br>
+                            D576　ニビのスクリプト番号<br>
+                            D6AFbit7<br>
+                            CC97　NPCの動き<br>
+                            01:4A53　NPCに動きをつける<br>
+                            CF12　動かすNPCの番号<br>
+                            CF12にNPCの番号*10hを入れてD6AFbit7を立ててD6ADのbit7を立ててCC97に移動データを入れてCD37に00、CD38に移動データのサイズを入れるとNPCが動く（CFACにも適切な値を常に入れないといけない）<br>
+                            CFAC　歩きアニメーション<br>
+                            多分こっちのNPCアニメーションの方がNPCの動きが速い＝主人公と同時に動かすのに対応している<br>
+                            だけどわざわざCC57でそれを呼び出す意味が分からない<br>
+                            値さえ入れておけばそれで動くのにマップスクリプトのように毎フレーム確認しておく必要は何？<br>
+                            頼むからそういうのはマップスクリプトで統一させて動かしてくれないかなあ…読みにくいから<br>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="reference">
+                <div class="card">
+                    <h2>参考・関連</h2>
+                    <ul>
+                        <li><a href="https://youtu.be/QiLBt2Fv_Vc?si=2aX8Sf712hOSmeIq">【初代ポケモン】右から話しかけるとおかしくなる人だよ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="articlesFooter"></footer>
+    <script type="module" src="../../common.js"></script>
+</body>
+
+</html>
