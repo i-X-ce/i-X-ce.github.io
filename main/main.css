@@ -239,6 +239,7 @@ footer {
 
             .down-btn{
                 opacity: 1;
+                user-select: none;
             }
 
             ul {
@@ -246,8 +247,27 @@ footer {
                 transition: 0.3s;
             }
 
-            input[type='checkbox']:checked+ul {
-                max-height: 100vh;
+            ul::-webkit-scrollbar{
+                background-color: transparent;
+            }
+
+            ul::-webkit-scrollbar-thumb{
+                background-color: var(--basecolor-thin);
+                border-radius: 100px;
+            }
+
+            .down-btn{
+                opacity: 1;
+                transition: 0.3s;
+            }
+
+            input[type='checkbox']:checked~ul {
+                max-height: 200px;
+                overflow-y: auto;
+            }
+
+            input[type='checkbox']:checked+label .down-btn{
+                opacity: 0;
             }
         }
     }
