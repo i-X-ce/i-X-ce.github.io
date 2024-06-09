@@ -59,8 +59,6 @@
 
     li:hover{
         padding-left: 10px;
-        background-color: var(--basecolor-dense2);
-        color: var(--basecolor-thin2);
     }
 }
 
