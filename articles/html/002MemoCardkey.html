@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ6BB8NPYY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HQ6BB8NPYY');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カードキーメモ</title>
+    <!-- 記事の追加があるときは、works.htmlとcords/header.htmlにも追加しておくこと -->
+    <!-- 記事のHTMLファイルの先頭には3桁の数字で番号をふっておくこと -->
+    <!-- 
+        ---チェック事項---
+        1.ファイル名
+        1.title、日付の入力
+        3.headerのリストの追加
+        4.worksへの追加
+        (5.news、recomendへの追加)
+        6.mainのfooterへ追加
+        7.参考・関連の記述
+        あげるのは記事.htmlとheader.htmlとindex.html,works.html,news.htmlとその他ファイル、画像
+    -->
+</head>
+
+<body>
+    <header id="articlesHearder"></header>
+    <script src="../articles.js"></script>
+    <div class="contener">
+        <div class="title">
+            <p class="day">2024/06/18</p>
+            <h1>カードキーメモ</h1>
+        </div>
+        <div class="gridContener">
+            <div class="text">
+                <div class="card">
+                    <h2>説明</h2>
+
+                    <div class="text-content">
+                        <p><a href="https://youtu.be/IBfwiUhK9wA?si=zFjJTVafkMDtSYYs">この動画</a>を作るときにメモしておいたものです。</p>
+                        <p>そのままコピペしただけのものなので見にくいと思いますが、良ければどうぞ。</p>
+                        <h3>メモ</h3>
+                        <div class="hex">
+                            <p>03:6131　カードキーのジャンプ先</p>
+
+                            <p>D69Eに00を入れる<br />
+                                ↓<br />
+                                座標をDEに保存<br />
+                                ↓<br />
+                                上04:C434,右0C:C45E,下00:C484,左08:C45A<br />
+                                をCFADに入れる<br />
+                                ↓<br />
+                                03:4BBFを見る←これがおかしい<br />
+                                ↓<br />
+                                横シャッター:18,縦シャッター:24,社長の部屋の横シャッター:5Eかどうかを判断する<br />
+                                マップ番号と座標をチェック<br />
+                                D69Eにシャッターの番号を入れる<br />
+                                ↓<br />
+                                「（主人公）は　CF45を　つかった！」<br />
+                                ↓<br />
+                                D6A7bit7を立てる<br />
+                                bit0かいりきで使う<br />
+                                bit3~5は釣りおやじ？<br />
+                                bit3ボロのつりざお<br />
+                                bit4いいつりざお<br />
+                                bit5すごいつりざお<br />
+                                bit6ヤマブキのゲート<br />
+                                かいりきはbit0が立っているかつ、CD5Bのbit6が立っているかつ動かすスプライトの状態（D463~2バイトおき）が10hであるかつ十字キーの入力が入っていれば起こる
+                            </p>
+
+                            <p>なみのりできるタイルは48h,32h,14h<br />
+                                D2E6が00h,03h,05h,07h,0Dh,0Eh,11h,16h,17h<br />
+                                サントアンヌ号外は14hのみ</p>
+
+                            <p>D6A7　カードキー使用後bit7が建てられて終わってる（他では参照されていない？）</p>
+
+                            <p>3F40　汎用イベントテーブル</p>
+
+                            <p>どうぐじゃない方は<br />
+                                汎用イベントテーブルでカードキーのイベントが起きてる<br />
+                                1E76　量産じゃない方の汎用イベント実行<br />
+                                14:79EB　シャッターを開けるイベント</p>
+
+                            <p>17:79EA　何か汎用イベントで特殊な使い方してる<br />
+                                18:7C91　同じく特殊</p>
+
+                            <p>3:7E8A　上向いてるときに発動する　汎用イベント作動ルーチン<br />
+                                03:7EC5~　汎用イベントの発動条件テーブル　マップの種類、タイル、汎用イベント番号の3バイトエントリ　マップの種類とタイルが一致で汎用イベント発動（バンクの一致が必須）
+                            </p>
+
+                            <p>ワープできるタイル<br />
+                                ↓01,12,17,3d,04,18,33<br />
+                                ↑01,5c<br />
+                                ←1a,4b<br />
+                                →0f,4e<br />
+                                4A94　マップ端からマップの移動ができるタイルかどうか判断してるって感じ　向いているタイルを保存する処理（03:4BC2）を使ってる。<br />
+                                マップ端からマップ移動できるマップは (d2dd)=c6,c7,c8,ca,52か(d2e6)=00,0d,0e,17のみかな？<br />
+                                いや、そうじゃない　出口の座標があってる＆タイルがあってさえいればどこでもできるんだよなあ<br />
+                                じゃあ何のためにそのテーブルは存在してるの？<br />
+                                わかったわ<br />
+                                マップ端移動はマップの端っこで起こるやつとそうじゃない奴があって、マップの端で起こらない奴をはじくためにこのテーブルがあるんだ<br />
+                                基本的にマップ端移動はマップの端で起こるから、起こらない方を名指しで指定している感じ<br />
+                                マップ端移動の方は　マップの端かどうか→座標があっているか　って感じで処理している<br />
+                                つまり正確にはマップ端移動ではなく「座標移動前ワープ」ってことになるか<br />
+                                ドア移動は「座標移動後ワープ」</p>
+
+                            <p>14:7A0F　実際のカードキーの処理</p>
+
+                            <p>D460　NPCの数</p>
+
+                            <p>C484<br />
+                                C434<br />
+                                C45A<br />
+                                C45E</p>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reference">
+                <div class="card">
+                    <h2>参考・関連</h2>
+                    <ul>
+                        <li><a href="https://youtu.be/IBfwiUhK9wA?si=zFjJTVafkMDtSYYs">【初代ポケモン】なんか没っぽいどうぐ『カードキー』　バグの仕組みを図解</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="articlesFooter"></footer>
+    <script type="module" src="../../common.js"></script>
+</body>
+
+</html>
