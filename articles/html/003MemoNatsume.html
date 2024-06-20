@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ6BB8NPYY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HQ6BB8NPYY');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ナツメ再戦メモ</title>
+    <!-- 記事の追加があるときは、works.htmlとcords/header.htmlにも追加しておくこと -->
+    <!-- 記事のHTMLファイルの先頭には3桁の数字で番号をふっておくこと -->
+    <!-- 
+        ---チェック事項---
+        1.ファイル名
+        1.title、日付の入力
+        3.headerのリストの追加
+        4.worksへの追加
+        (5.news、recomendへの追加)
+        6.mainのfooterへ追加
+        7.参考・関連の記述
+        あげるのは記事.htmlとheader.htmlとindex.html,works.html,news.htmlとその他ファイル、画像
+    -->
+</head>
+
+<body>
+    <header id="articlesHearder"></header>
+    <script src="../articles.js"></script>
+    <div class="contener">
+        <div class="title">
+            <p class="day">2024/06/20</p>
+            <h1>ナツメ再戦メモ</h1>
+        </div>
+        <div class="gridContener">
+            <div class="text">
+                <div class="card">
+                    <h2>説明</h2>
+                    <div class="text-content">
+                        <p><a href="https://youtu.be/UvUObE6IX7c?si=E4CbAhFkXQVGVVfU">この動画</a>を作るときにメモしておいたものです。</p>
+                        <p>そのままコピペしただけのものなので見にくいと思いますが、良ければどうぞ。</p>
+                        <h3>メモ</h3>
+                        <div class="hex">
+                            D576＝ニビのマップスクリプト番号<br>
+                            D5DB＝カスミのマップスクリプト番号<br>
+                            34F7＝座標がリストの中に存在するかどうか調べる　あったらキャリーが立つ　HL,リストの先頭<br>
+                            06:7E85　ニビの主人公の圧縮移動データ<br>
+                            06:7E92　ニビのNPC圧縮移動データ？<br>
+                            3544　圧縮移動データ解凍　HL,解凍先　DE,データ元<br>
+                            06:7E39　ニビの歩行ルーチン開始<br>
+                            1E0A　メインループ<br>
+                            1E58　ボタン入力関連<br>
+                            294C　フィールドのボタン入力<br>
+                            2A34　マップスクリプト<br>
+                            3DB5　HLのテーブルからA番のアドレスに飛ぶ<br>
+                            3196　↑のやつの特別バージョン　というより近づいてくるNPCがいるところでは割と普通に使われているらしい（D6B2bit4が立ってたらD97Cをスクリプト番号として使う）D973は何？<br>
+                            D71B　グレンの開くドアフラグ<br>
+                            31B5　名前入れるルーチン　CF59・ジム名　CF5E・ジムリーダー名<br>
+                            <br>
+                            CCD2＝主人公が進む距離<br>
+                            CCD3～主人公の移動データ（後ろから読む）　00一瞬待機,10→,20←,40↑,80↓　ボタンのbit通りに動く　<br>
+                            <br>
+                            CF0B　CC57をテーブルとしてここに入ってた番号のアドレスに飛ぶよ<br>
+                            CC57　ここをテーブルとして(CF0B)番目のアドレスに飛ぶよ<br>
+                            CC58　バンク<br>
+                            <br>
+                            294C　スクリプト関連　CF0B実行もここ（CF0B実行が先）<br>
+                            その下にメニュー開く分岐がある<br>
+                            <br>
+                            CD5B　NPC歩いてきてるよフラグとか<br>
+                            <br>
+                            D6AFのbit7を立ててCD38に歩数入れてCCD3～逆順に操作データを入れると主人公が歩き出す<br>
+                            <br>
+                            CF0B実行<br>
+                            ↓<br>
+                            マップスクリプト<br>
+                            ↓<br>
+                            メニューとか<br>
+                            <br>
+                            ナツメジムスクリプト<br>
+                            17:645C<br>
+                            D6B2bit4が立ってたらD97C　ナツメジムのスクリプト番号　（言い換えるとD6B2bit4が立った瞬間だけ実行される）<br>
+                            立ってないならD5DB<br>
+                            NPCとの戦闘時にD6B2bit4が立つ→戦闘終了時に実行するスプライトを指定してるのか？<br>
+                            <br>
+                            <br>
+                            名前をコピーするルーチン<br>
+                            ハナダ・ニビ・タマムシ・セキチク・グレン（D0EB bit6)<br>
+                            トキワ（絶対に呼ばれる）<br>
+                            クチバ（D0EB　bit5）<br>
+                            ヤマブキ（D0EB bit6の時はこのルーチンのみ）<br>
+                            グレンとクチバには開くドアがあるけどドアを開くかどうかのフラグと名前をコピーするルーチンはあべこべになってる<br>
+                            <br>
+                            3202　一般トレーナーテキスト表示<br>
+                            一般トレーナーデータ（サンプル：ニビジムの雑魚データ17:4732）<br>
+                            D973に保存してあるアドレスのテーブルをもとにしてフラグを立てる<br>
+                            31C9でAに数値入れて取りたい数値を持ってくる仕組み<br>
+                            00:フラグのbit、？、02:フラグのアドレス×2、04:未勝利テキスト×2、06:勝利済みテキスト×2、08:勝利後テキスト、0A:？？？<br>
+                            <br>
+                            戦闘が始まる<br>
+                            ↓<br>
+                            D6B2bit4が立つ、スクリプト番号が+2番になる<br>
+                            ↓<br>
+                            戦闘に勝利<br>
+                            ↓<br>
+                            ジムフラグ立てる<br>
+                            ↓<br>
+                            マップスクリプト（名前保存処理）<br>
+                            ↓<br>
+                            ボタン入力<br>
+                            ↓<br>
+                            マップスクリプト（D97Cの番号2番）でジムフラグが立つ＆戦闘勝利フラグ立てる<br>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reference">
+                <div class="card">
+                    <h2>参考・関連</h2>
+                    <ul>
+                        <li><a href="https://youtu.be/UvUObE6IX7c?si=qX44jQ4d0y1zvPB3">【初代ポケモン】ヤマブキジムだけおかしいのはなぜ？　バグの仕組みを図解</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="articlesFooter"></footer>
+    <script type="module" src="../../common.js"></script>
+</body>
+
+</html>
