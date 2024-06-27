@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ6BB8NPYY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HQ6BB8NPYY');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>壁抜けメモ</title>
+    <!-- 記事の追加があるときは、works.htmlとcords/header.htmlにも追加しておくこと -->
+    <!-- 記事のHTMLファイルの先頭には3桁の数字で番号をふっておくこと -->
+    <!-- 
+        ---チェック事項---
+        1.ファイル名
+        1.title、日付の入力
+        3.headerのリストの追加
+        4.worksへの追加
+        (5.news、recomendへの追加)
+        6.mainのfooterへ追加
+        7.参考・関連の記述
+        あげるのは記事.htmlとheader.htmlとindex.html,works.html,news.htmlとその他ファイル、画像
+    -->
+</head>
+
+<body>
+    <header id="articlesHearder"></header>
+    <script src="../articles.js"></script>
+    <div class="contener">
+        <div class="title">
+            <p class="day">2024/06/27</p>
+            <h1>壁抜けメモ</h1>
+        </div>
+        <div class="gridContener">
+            <div class="text">
+                <div class="card">
+                    <h2>説明</h2>
+                    <div class="text-content">
+                        <p><a href="https://youtu.be/ERjBE1DXVwQ?si=Z-UQY2kdZykz5mr3">この動画</a>を作るときにメモしておいたものです。</p>
+                        <p>そのままコピペしただけのものなので見にくいと思いますが、良ければどうぞ。</p>
+                        <h3>メモ</h3>
+                        <div class="hex">
+                            03:5BD0　マックスアップ等、戦闘中は使えないどうぐ<br>
+                            03:5BD7　キズぐすり等、戦闘中も使えるどうぐ<br>
+                            <br>
+                            2DE1　どうぐの時のポケモン選択画面<br>
+                            <br>
+                            なみのり07、タマゴうみ14、あなをほる1Dはどうぐと同じ処理で行われる<br>
+                            <br>
+                            35h以上の5BD0,D7は一括して同じ処理<br>
+                            3D以上　80<br>
+                            サイコソーダ　60<br>
+                            おいしいみず　50<br>
+                            いいキズぐすり　50<br>
+                            13未満　200<br>
+                            13超過　20<br>
+                            <br>
+                            04:5E8B　使用した道具によって終了時の処理とかを分岐する<br>
+                            06はこれすら通らない（はい、いいえの選択肢も出ないのはこのため）押した瞬間に実行<br>
+                            C4以上はわざマシン等々の処理<br>
+                            1D,47,49,4C,4D,4Eは使用後CD65に数値が入っていたらフィールドに戻る<br>
+                            0A～14、20～28、2F、34～36、3C～3E、41～44、4F～53は使用後スプライトを戻す処理<br>
+                            <br>
+                            C45A　左のタイル<br>
+                            （CFB2）　01、フィールドモード　00、直接表示モード　それ以外、ポケモンモード　<br>
+                            25D6　進めるかどうかの判断　無理ならキャリーが立たない（D6B5bit6、CD38に数値が入ってると絶対に立たない）<br>
+                            03:4BBF　方向に対してどんなタイルが入っているのかを（CFAD）に入れる<br>
+                            (CFAD)進もうとしている方向のタイル<br>
+                            （C1XC）この方向にスプライトがある<br>
+                            01:4A59　スプライトで進めない方向関連のルーチン<br>
+                            結局スプライトも表示されているもので判断しているらしい<br>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reference">
+                <div class="card">
+                    <h2>参考・関連</h2>
+                    <ul>
+                        <li><a href="https://youtu.be/ERjBE1DXVwQ?si=Z-UQY2kdZykz5mr3">【初代ポケモン】なぜ壁抜けアイテムで壁を抜けられるの？　バグの仕組みを図解</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="articlesFooter"></footer>
+    <script type="module" src="../../common.js"></script>
+</body>
+
+</html>
