@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ6BB8NPYY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HQ6BB8NPYY');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぢらいメモ</title>
+    <!-- 記事の追加があるときは、works.htmlとcords/header.htmlにも追加しておくこと -->
+    <!-- 記事のHTMLファイルの先頭には3桁の数字で番号をふっておくこと -->
+    <!-- 
+        ---チェック事項---
+        1.ファイル名
+        1.title、日付の入力
+        3.headerのリストの追加
+        4.worksへの追加
+        (5.news、recomendへの追加)
+        6.mainのfooterへ追加
+        7.参考・関連の記述
+        あげるのは記事.htmlとheader.htmlとindex.html,works.html,news.htmlとその他ファイル、画像
+    -->
+</head>
+
+<body>
+    <header id="articlesHearder"></header>
+    <script src="../articles.js"></script>
+    <div class="contener">
+        <div class="title">
+            <p class="day">2024/10/01</p>
+            <h1>ぢらいメモ</h1>
+        </div>
+        <div class="gridContener">
+            <div class="text">
+                <div class="card">
+                    <h2>説明</h2>
+                    <div class="text-content">
+                        <p><a href="https://youtu.be/ERjBE1DXVwQ?si=Z-UQY2kdZykz5mr3">この動画</a>を作るときにメモしておいたものです。</p>
+                        <p>そのままコピペしただけのものなので見にくいと思いますが、良ければどうぞ。</p>
+                        <h3>メモ</h3>
+                        <div class="hex">
+                            <a href="https://hakuda2.web.fc2.com/wario/poke1/k15.html">ふたごじまのぢらい・改</a><br>
+                            <a href="https://youtu.be/HavHwYX80ZM?si=Wat8n_JbVFAxlFpJ">ポケモン　バグ技実況ツアー　その27</a><br>
+                            <a href="https://www.youtube.com/watch?v=TQexjmHrGx8">ふたごじまでマップが崩壊するバグ - Pokémon Red/Blue（Japanese version）</a><br>
+                            <a href="https://youtu.be/EaC8gPKsVUg?si=IkYD_olvbLPv91Px">【閲覧注意】ふたごじまで恐ろしいバグり方をしたらしい…【ポケモン赤緑】- Pokémon Red/Blue Glitch</a><br>
+                            <a href="https://hakuda2.web.fc2.com/wario/poke1/k15-3.html#google_vignette">ふたごじまのぢらい・滅</a><br>
+                            <a href="https://github.com/akatsuki105/pokered-docs-ja/tree/master">pokered-docs-ja</a><br>
+                            <br>
+                            ふたごじまスクリプト 11:4DC9<br>
+                            ふたごじまイベントテーブル 11:4E2B 0F71,0F71,077D,0411<br>
+                            FF8C　イベント番号<br>
+                            左のぢらいはイベント番号3、右は4<br>
+                            D2D7　文字表示のはやさらしい<br>
+                            (0D,05),(0D,19)<br>
+                            13DF（青293E）　イベントを起こす　（FF8C）番目のイベントを起こす<br>
+                            3C67(黄3C42,青3C8D,初期3C89)　文字描画コマンド制御　HL,文字列<br>
+                            <br>
+                            <br>
+                            ぢ イベント cm jp<br>
+                            左 077D CB 1312<br>
+                            右 0411 20 3EC9<br>
+                            <br>
+                            青<br>
+                            左 077D<br>
+                            EA,DD,D2,FA,0E,D3,EA,E1,D2,FA,E0,D2,4F,FA,<br>
+                            0D,<br>
+                            D3,81,4F,EA,E0,D2,FA,0F,D3,6F,FA,10,D3,67,CB,39,28,0E,FA,0C,D3,C6,<br>
+                            06,<br>
+                            5F,16,<br>
+                            00,06,00　ここのエラーで打ち止め <br>
+                            右 0411 <br>
+                            04,CB,47,CA,A4,<br>
+                            04,FA,AF,D6,CB,<br>
+                            57　直前のコマンドで巨大な枠が表示されることでSEのバンクが7Aに書き換わりフリーズ<br>
+                            <br>
+                            7D071104はD32C～のアドレスで使われている<br>
+                            7D 範囲外のマップブロックの種類<br>
+                            07 入口出口の数<br>
+                            0411出口0の(y,x)<br>
+                            <br>
+                            通常コマンドはhlに次のコマンドの場所を入れてから終了する(0602に飛ばす)もんなんだがね<br>
+                            あと普通はhlにpopしてからいろいろと処理するはずなのにpopしていないコマンドはやばい。本来コマンドとして読むべきものをpcにしてしまうと。<br>
+                            CB(1312)コマンドは偶然連続で二回retがあるから(D2D7)の値のスタックが崩されて0150に飛ぶ。<br>
+                            だから(D2D7)にDEとか適当な値を入れて左ぢらいに話しかけるといい感じに任意コード実行できる。<br>
+                            右ぢらいの20(3EC9)コマンドはなんかうまいことルーチンを抜けている<br>
+                            スターブロブさんには処理落ちすると書かれているけど何も起こらない。なぜ。<br>
+                            コードを見た感じも固定で終了っぽいんだけどなあ…<br>
+                            起こりました。(D2D7)の数値の問題らしい。bit1が立っていると遅くなる。390Bでなんか遅れている。<br>
+                            スタックがなんかうまくいっているせいでフリーズはしていないけどD2D7に値が戻されていないのでbit1が立ったままになっている。<br>
+                            390B AかBを押すとVblankを待って終了？押さなければ(D2D4)フレーム待って終了？<br>
+                            なんか0405のループを実行するたびに390Bが実行されているみたい。要するに一文字表示させるごとにはなしのはやさ(D2D4)フレームかかるということ<br>
+                            通常D2D7のbit1は立ってない状態なので遅く感じるというわけ<br>
+                            人と話すときは大体bit1が立っているわけだが、メニューやら何やらでは通常では立っていない。<br>
+                            ちなみにD6AFのbit6が立っているときはどっちみち一瞬で表示される。これがテキスト技ってやつ。<br>
+                            D2D7が3の時に左ぢらいを踏むと大変なことになる。<br>
+                            <br>
+                            青版のコマンドは赤緑とは違って0E以降は全てSEになっている(テーブルの削減でしょう)<br>
+                            <br>
+                            0350はフォントをVRAMに移し替える処理の途中。だからタイルがおかしくなる。<br>
+                            FFCBに値が入っているとマップを書き換える処理が入る？違う、フォントを書き換える処理。<br>
+                            本来フォントに使う処理をマップのVRAMに使っているから変な文字が出てくる。2文字ずつ出てくるのはフォントが必ず黒であるため。<br>
+                            出てくる文字は11:5319あたりから。ロケット団アジトB1(C7)の右のトレーナーのセリフ。<br>
+                            通常は128文字分のタイルを書き換えるところ177文字分書き換えることになっている<br>
+                            <br>
+                            右ぢらい 20 3EC9 なんかの保存のプログラムに飛んですぐにret 0411に飛ぶ<br>
+                            左ぢらい CB　1312 圧縮方法のプログラムに飛んですぐにret 077Eに飛ぶ<br>
+                            <br>
+                            <br>
+                            29 08 0F 3A 08 10 40 08 11 8D 08 12 59 08 13 85 08 14 8C 08 15 9A 08 16 AB 08 17 B6 08 18 44 08 19 51 08 1A DF 08 1B E0 08 1C E1 08 1D FF 00 54 8D AB <br>
+                            上向きイベントがあるマップテーブル<br>
+                            マップ番号、向き(C901)、バンク<br>
+                            <br>
+                            ボクは　ぢらい<br>
+                            みえない　ぢらい<br>
+                            コマンドさがす　スタックのこえ<br>
+                            みんな　ぢらいに　はなさないでね<br>
+                            ボクはぢらいボクはぢらいボクはぢらいボクはぢらい<br>
+                            サイズ　でかすぎ<br>
+                            ボクはぢらいボクはぢらいボクはぢらいボクはぢらい<br>
+                            クソでか　わくを<br>
+                            ボクはぢらいボクはぢらいボクはぢらいボクはぢらい<br>
+                            さがす　しゅうたん<br>
+                            ボクはぢらいボクはぢらいボクはぢらいボクはぢらい<br>
+                            ひでえな　ぢらい<br>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="reference">
+                <div class="card">
+                    <h2>参考・関連</h2>
+                    <ul>
+                        <li><a href="https://hakuda2.web.fc2.com/wario/poke1/k15.html">ふたごじまのぢらい・改</a></li>
+                        <li><a href="https://youtu.be/HavHwYX80ZM?si=Wat8n_JbVFAxlFpJ">ポケモン　バグ技実況ツアー　その27</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=TQexjmHrGx8">ふたごじまでマップが崩壊するバグ - Pokémon Red/Blue（Japanese version）</a></li>
+                        <li><a href="https://youtu.be/EaC8gPKsVUg?si=IkYD_olvbLPv91Px">【閲覧注意】ふたごじまで恐ろしいバグり方をしたらしい…【ポケモン赤緑】- Pokémon Red/Blue Glitch</a></li>
+                        <li><a href="https://hakuda2.web.fc2.com/wario/poke1/k15-3.html#google_vignette">ふたごじまのぢらい・滅</a></li>
+                        <li><a href="https://github.com/akatsuki105/pokered-docs-ja/tree/master">pokered-docs-ja</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="articlesFooter"></footer>
+    <script type="module" src="../../common.js"></script>
+</body>
+
+</html>
